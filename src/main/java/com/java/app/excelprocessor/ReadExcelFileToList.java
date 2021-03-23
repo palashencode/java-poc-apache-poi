@@ -34,16 +34,23 @@ public class ReadExcelFileToList {
             FileOutputStream fos = new FileOutputStream(newFileName);
             XSSFWorkbook wb = new XSSFWorkbook();
             Sheet sheet = wb.createSheet();
-            Country[] countries = countryList.toArray(new Country[0]);
-            for (int i = 0; i < countries.length; i++) {
-                Row row = sheet.createRow(i);
-                Cell cell = row.createCell(0);
-                cell.setCellValue(countries[i].getShortCode());
-                cell = row.createCell(1);
-                cell.setCellValue(countries[i].getName());
-                cell = row.createCell(2);
-                cell.setCellValue(countries[i].getTravelfriendly());
-            }
+
+            // process and populate the countries
+            {
+                int j = 0;
+                Country c = null;
+                for (Iterator<Country> i = countryList.iterator(); i.hasNext(); j++) {
+                    c = i.next();
+                    Row row = sheet.createRow(j);
+                    Cell cell = row.createCell(0);
+                    cell.setCellValue(c.getShortCode());
+                    cell = row.createCell(1);
+                    cell.setCellValue(c.getName());
+                    cell = row.createCell(2);
+                    cell.setCellValue(c.getTravelfriendly());
+                };
+            }    
+            
             wb.write(fos);
             wb.close();
 
