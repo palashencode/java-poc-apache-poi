@@ -23,7 +23,6 @@ public class ReadExcelFileToList {
     writeExcelFileData("./excel/CountryList.xlsx");
     System.out.println("Country List\n" + countryList);
 }
-
     // reads excel file, processes data, creates new excel file
     private static void writeExcelFileData(String fileName){
         List<Country> countryList = readExcelFileData(fileName);
@@ -105,3 +104,4 @@ public class ReadExcelFileToList {
     }
 
 }
+
