@@ -71,14 +71,12 @@ public class WriteSampleXSSFExcel {
             styleMap.put("label_text", labelTextStyle);
 
             int row = 2;
-            // XSSFCell cell1 = XSSFFactoryUtil.addCellString(sheet, 0, row, "Primary Header Style", primaryHeaderStyle); row += 2;
             XSSFCell cell1 = XSSFFactoryUtil.buildCell(sheet, 0, row)
                                     .value("Primary Header Style")
                                     .style(primaryHeaderStyle)
                                     .build(); 
                                     row += 2;
-            
-            // XSSFCell cell2 = XSSFFactoryUtil.addCellString(sheet, 0, row, "Primary Header Style Merged", primaryHeaderStyle);
+
             XSSFCell cell2 = XSSFFactoryUtil.buildCell(sheet, 0, row)
                                     .value("Primary Header Style Merged")
                                     .style(primaryHeaderStyle)
@@ -110,9 +108,7 @@ public class WriteSampleXSSFExcel {
             XSSFCell cell74 = XSSFFactoryUtil.buildCell(sheet, 0, row).value("Secret Link")
                                             .style(hyperlinkStyle).url("https://www.google.com/search?q=apache+poi")
                                             .build(); row += 2;
-            // XSSFFactoryUtil.addLinkToCell(sheet.getWorkbook(), cell74, "https://www.google.com/search?q=apache+poi");
-        
-            // XSSFCell cell77 = XSSFFactoryUtil.addNewHyperLinkStringCell(sheet, 0, row, "Secret Link2","https://www.google.com/search?q=apache+poi+again", hyperlinkStyle); row += 2;
+
             XSSFCell cell77 = XSSFFactoryUtil.buildCell(sheet, 0, row).value("Secret Link2")
                                                     .url("https://www.google.com/search?q=apache+poi+again")
                                                     .style(hyperlinkStyle).build(); row += 2;
@@ -130,7 +126,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getLabelCellStyle(XSSFWorkbook xssfWorkbook){
     XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 12, XSSFFactoryUtil.WEIGHT_BOLD, XSSFFactoryUtil.COLOR_BROWN);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).build();
         return style;
     }
@@ -138,7 +133,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getPrimaryHeaderStyle(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_TAHOMA, 10, XSSFFactoryUtil.WEIGHT_BOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font, XSSFFactoryUtil.COLOR_BLUE_GREY, HorizontalAlignment.CENTER);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).bgColor(XSSFFactoryUtil.COLOR_BLUE_GREY).hAlignment(HorizontalAlignment.CENTER).build();
         return style;
     }
@@ -146,7 +140,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getSecondaryStyle(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_TAHOMA, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).build();
         return style;
     }
@@ -154,7 +147,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getSecondaryStyleRightAlign(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_TAHOMA, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font,HorizontalAlignment.RIGHT);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).hAlignment(HorizontalAlignment.RIGHT).build();
         return style;
     }
@@ -162,7 +154,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTahomaTextStyle(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).build();
         return style;
     }
@@ -170,7 +161,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTahomaTextStyleCurrency(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyleCustomNumberFormat(xssfWorkbook, font, "[$$-409]#,##0.00");
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).format("[$$-409]#,##0.00").build();
         return style;
     }
@@ -178,7 +168,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTahomaTextStyleDouble(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyleCustomNumberFormat(xssfWorkbook, font, "#,##0.00");
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).format("#,##0.00").build();
         return style;
     }
@@ -186,7 +175,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTahomaTextStyleInteger(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyleCustomNumberFormat(xssfWorkbook, font, "#,##");
         style =  XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).format("#,##").build();
         return style;
     }
@@ -194,8 +182,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTahomaTextStyleBorderLeftRight(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
-        // XSSFFactoryUtil.setBorderStyle(style, XSSFFactoryUtil.COLOR_BLACK, BorderStyle.THIN, true, true, false, false);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).border(XSSFFactoryUtil.COLOR_BLACK, BorderStyle.THIN, true, true, false, false).build();
         return style;
     }
@@ -203,7 +189,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTextStyle(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 8, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).build();
         return style;
     }
@@ -211,7 +196,6 @@ public class WriteSampleXSSFExcel {
     private static XSSFCellStyle getDefaultTextStyleBold(XSSFWorkbook xssfWorkbook){
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 8, XSSFFactoryUtil.WEIGHT_BOLD, XSSFFactoryUtil.COLOR_BLACK);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
         style =  XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).build();
         return style;
     }
@@ -220,7 +204,6 @@ public class WriteSampleXSSFExcel {
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_TAHOMA, 10, XSSFFactoryUtil.WEIGHT_BOLD, XSSFFactoryUtil.COLOR_BLUE);
         font.setUnderline(FontUnderline.SINGLE);
-        // style = XSSFFactoryUtil.createCellStyle(xssfWorkbook, font);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).build();
         return style;
     }

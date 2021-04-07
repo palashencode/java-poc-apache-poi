@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFBorderFormatting;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -34,6 +35,9 @@ public class XSSFFactoryUtil {
     public static final Boolean WEIGHT_BOLD = true;
     public static final Boolean WEIGHT_NOBOLD = false;
 
+    public static void mergeAdapter(XSSFSheet sheet, int col1, int row1, int col2, int row2){
+        sheet.addMergedRegion(new CellRangeAddress(row1,row2,col1,col2));
+    }
 
     public static XSSFSheet createSheet(XSSFWorkbook xssfWorkbook, String name, int order){
         if( xssfWorkbook == null ) return null;
@@ -174,35 +178,6 @@ public class XSSFFactoryUtil {
 
     } 
 
-    // public static XSSFCell addCellDouble(XSSFSheet xssfSheet, int colNo, int rowNo, Double value, XSSFCellStyle xssfCellStyle){
-    //     XSSFCell cell = null;
-    //     cell = xssfSheet.createRow(rowNo).createCell(colNo);
-    //     // cell.setCellType(CellType.BLANK);
-    //     cell.setCellValue(value);
-    //     cell.setCellStyle(xssfCellStyle);
-    //     return cell;
-    // }
-
-    // public static XSSFCell addCellString(XSSFSheet xssfSheet, int colNo, int rowNo, String value, XSSFCellStyle xssfCellStyle){
-    //     XSSFCell cell = null;
-    //     cell = xssfSheet.createRow(rowNo).createCell(colNo);
-    //     // cell.setCellType(CellType.BLANK);
-    //     cell.setCellValue(value);
-    //     cell.setCellStyle(xssfCellStyle);
-    //     return cell;
-    // }
-
-    // public static XSSFCell addNewHyperLinkStringCell(XSSFSheet xssfSheet, int colNo, int rowNo, String label, String url, XSSFCellStyle xssfCellStyle){
-        
-    //     XSSFCell cell = XSSFFactoryUtil.addCellString(xssfSheet, colNo, rowNo, label, xssfCellStyle);
-        
-    //     CreationHelper creationHelper = xssfSheet.getWorkbook().getCreationHelper();
-    //     Hyperlink link = creationHelper.createHyperlink(HyperlinkType.URL);
-    //     link.setAddress(url);
-    //     cell.setHyperlink(link);
-    //     return cell;
-    // }
-
     public static XSSFCell addLinkToCell(XSSFWorkbook xssfWorkbook, XSSFCell cell, String url){
         CreationHelper creationHelper = xssfWorkbook.getCreationHelper();
         Hyperlink link = creationHelper.createHyperlink(HyperlinkType.URL);
@@ -210,15 +185,6 @@ public class XSSFFactoryUtil {
         cell.setHyperlink(link);
         return cell;
     }
-
-    // public static XSSFCell addCellNumber(XSSFSheet xssfSheet, int colNo, int rowNo, Integer value, XSSFCellStyle xssfCellStyle){
-    //     XSSFCell cell = null;
-    //     cell = xssfSheet.createRow(rowNo).createCell(colNo);
-    //     // cell.setCellType(CellType.BLANK);
-    //     cell.setCellValue(value);
-    //     cell.setCellStyle(xssfCellStyle);
-    //     return cell;
-    // }
 
     public static class XSSFCellStyleBuilder{
         private XSSFWorkbook xssfWorkbook;
@@ -330,77 +296,23 @@ public class XSSFFactoryUtil {
     public static XSSFCellStyleBuilder buildCellStyle(XSSFWorkbook xssfWorkbook){
         return new XSSFCellStyleBuilder(xssfWorkbook);
     }
-    
-    // public static XSSFCellStyle createCellStyle(XSSFWorkbook xssfWorkbook){
-    //         XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-    //         return xssfCellStyle;
-    // }
 
-    // public static XSSFCellStyle createCellStyle(XSSFWorkbook xssfWorkbook, XSSFFont xssfFont){
-    //     XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-    //     xssfCellStyle.setFont(xssfFont);
-    //     return xssfCellStyle;
-    // }
-
-    // public static XSSFCellStyle createCellStyleCustomNumberFormat(XSSFWorkbook xssfWorkbook, XSSFFont xssfFont, String dataFormat){
-    //     XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-    //     xssfCellStyle.setFont(xssfFont);
-    //     xssfCellStyle.setDataFormat(xssfWorkbook.createDataFormat().getFormat(dataFormat));
-    //     return xssfCellStyle;
-    // }
-
-    // public static XSSFCellStyle createCellStyle(XSSFWorkbook xssfWorkbook, XSSFFont xssfFont, HorizontalAlignment hAlignment){
-    //     XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-    //     xssfCellStyle.setFont(xssfFont);
-    //     xssfCellStyle.setAlignment(hAlignment);
-    //     return xssfCellStyle;
-    // }
 
     public static XSSFCellStyle setCellStyleHorizontalAlignment(XSSFCellStyle style, HorizontalAlignment hAlignment){
         style.setAlignment(hAlignment);
         return style;
     }
 
-    // public static XSSFCellStyle createCellStyle(XSSFWorkbook xssfWorkbook, XSSFFont xssfFont, short colorIndex){
-    //     XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-    //     xssfCellStyle.setFont(xssfFont);
-    //     setBackGroundColor(xssfCellStyle,colorIndex);
-    //     return xssfCellStyle;
-    // }
-
     public static XSSFCellStyle setCellStyleColor(XSSFCellStyle style, short colorIndex){
         setBackGroundColor(style,colorIndex);
         return style;
     }
 
-    
-
-    //     public static XSSFCellStyle createCellStyle(XSSFWorkbook xssfWorkbook, XSSFFont xssfFont, short colorIndex
-    //                                             , HorizontalAlignment hAlignment){
-    //     XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-        
-    //     xssfCellStyle.setFont(xssfFont);
-    //     setBackGroundColor(xssfCellStyle,colorIndex);
-    //     xssfCellStyle.setAlignment(hAlignment);
-    //     return xssfCellStyle;
-    // }
 
     private static void setBackGroundColor(XSSFCellStyle style, int colorIndex){
         style.setFillForegroundColor((short)colorIndex);
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
     }
-
-    // public static XSSFCellStyle createCellStyle(XSSFWorkbook xssfWorkbook, XSSFFont xssfFont, short colorIndex
-    //                                             , HorizontalAlignment hAlignment, VerticalAlignment vAlignment){
-    //     XSSFCellStyle xssfCellStyle = xssfWorkbook.createCellStyle();
-    //     xssfCellStyle.setFont(xssfFont);
-    //     setBackGroundColor(xssfCellStyle,colorIndex);
-    //     xssfCellStyle.setAlignment(hAlignment);
-    //     xssfCellStyle.setVerticalAlignment(vAlignment);
-    //     return xssfCellStyle;
-    // }
-
-
 
     public static void newBorderStyle(XSSFWorkbook workbook, XSSFCellStyle oldCellStyle,short colorIndex, BorderStyle borderStyle, boolean left, boolean right, boolean top, boolean bottom){
         XSSFCellStyle xssfCellStyle = workbook.createCellStyle();
