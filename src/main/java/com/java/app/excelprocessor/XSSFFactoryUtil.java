@@ -15,10 +15,12 @@ import org.apache.poi.ss.usermodel.Hyperlink;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFBorderFormatting;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder;
@@ -37,6 +39,57 @@ public class XSSFFactoryUtil {
 
     public static void mergeAdapter(XSSFSheet sheet, int col1, int row1, int col2, int row2){
         sheet.addMergedRegion(new CellRangeAddress(row1,row2,col1,col2));
+    }
+
+    public static void applyMergedCellStyle(XSSFSheet sheet, int col1, int row1, int col2, int row2){
+        
+        XSSFRow row = null;
+        row = sheet.getRow(row1);
+        if(row == null) return;
+        XSSFCell cell = row.getCell(col1);
+        if(cell == null) return;
+        
+        XSSFCellStyle cellStyle = cell.getCellStyle();
+        
+        for (int i = row1; i <= row2; i++) {
+            for (int j = col1; j <= col2; j++) {
+                sheet.getRow(i).getCell(j).setCellStyle(cellStyle);
+            }
+        }
+
+        // sheet.addMergedRegion(new CellRangeAddress(row1,row2,col1,col2));
+    }
+
+    public static void mergeCellWithStyle(XSSFSheet sheet, int col1, int row1, int col2, int row2){
+        
+        try {
+            XSSFRow row = null;
+            row = sheet.getRow(row1);
+            if(row == null) throw new AssertionError("cannot merge null rows");
+            XSSFCell cell = row.getCell(col1);
+            if(cell == null) throw new AssertionError("cannot merge null cells");
+    
+            XSSFCellStyle cellStyle = cell.getCellStyle();
+
+            CellRangeAddress mergedCell = new CellRangeAddress(row1,row2,col1,col2);
+            sheet.addMergedRegion(mergedCell);
+
+            RegionUtil.setBorderBottom(cellStyle.getBorderBottom(),mergedCell, sheet);
+            RegionUtil.setBottomBorderColor(cellStyle.getBottomBorderColor(), mergedCell, sheet);
+            
+            RegionUtil.setBorderRight(cellStyle.getBorderRight(),mergedCell, sheet);
+            RegionUtil.setRightBorderColor(cellStyle.getRightBorderColor(), mergedCell, sheet);
+            
+            RegionUtil.setBorderTop(cellStyle.getBorderTop(),mergedCell, sheet);
+            RegionUtil.setTopBorderColor(cellStyle.getTopBorderColor(), mergedCell, sheet);
+            
+            RegionUtil.setBorderLeft(cellStyle.getBorderLeft(),mergedCell, sheet);
+            RegionUtil.setLeftBorderColor(cellStyle.getLeftBorderColor(), mergedCell, sheet);
+
+        } catch (AssertionError e) {
+            //Do Nothing, optionally log an error message
+            System.out.println("ERROR");
+        }
     }
 
     public static XSSFSheet createSheet(XSSFWorkbook xssfWorkbook, String name, int order){
@@ -150,7 +203,16 @@ public class XSSFFactoryUtil {
 
         public XSSFCell build(){
             if(this.xssfSheet == null) return null;
-            XSSFCell cell = this.xssfSheet.createRow(this.rowNo).createCell(this.colNo);
+
+
+            XSSFRow row = this.xssfSheet.getRow(this.rowNo);
+            if(row == null){
+                row = this.xssfSheet.createRow(this.rowNo);
+            }
+            XSSFCell cell = row.getCell(this.colNo);
+            if(cell == null){
+                cell = row.createCell(this.colNo);
+            }
             
             if(this.xssfCellStyle != null){
                 cell.setCellStyle(this.xssfCellStyle);

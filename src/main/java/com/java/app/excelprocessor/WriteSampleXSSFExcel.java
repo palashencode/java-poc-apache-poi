@@ -64,6 +64,9 @@ public class WriteSampleXSSFExcel {
             XSSFCellStyle defaultTahomaTextStyleBorder_left_right = getDefaultTahomaTextStyleBorderLeftRight(wb);
             styleMap.put("default_tahoma_text_border_left_right", defaultTahomaTextStyleBorder_left_right);
 
+            XSSFCellStyle defaultTahomaTextStyleBorder_top_left = getDefaultTahomaTextStyleBorderCustom(wb,true,true,true,false);
+            styleMap.put("default_tahoma_text_border_top_left", defaultTahomaTextStyleBorder_top_left);
+
             XSSFCellStyle hyperlinkStyle = getHyperLinkStyle(wb);
             styleMap.put("hyperlink", hyperlinkStyle);
 
@@ -113,6 +116,23 @@ public class WriteSampleXSSFExcel {
                                                     .url("https://www.google.com/search?q=apache+poi+again")
                                                     .style(hyperlinkStyle).build(); row += 2;
             
+            XSSFCell cell78 = XSSFFactoryUtil.buildCell(sheet, 1, row).value("merged region1")
+                                                .style(defaultTahomaTextStyleBorder_top_left).build();
+            XSSFCell cell79 = XSSFFactoryUtil.buildCell(sheet, 3, row).value("value2")
+                                                .style(defaultTahomaTextStyleBorder_top_left).build();
+                                                row+=2;
+            
+            // XSSFFactoryUtil.mergeAdapter(sheet, 1, row, 3, row); row+=4;
+            XSSFCell cell81 = XSSFFactoryUtil.buildCell(sheet, 1, row).value("merged region88")
+                                                .style(defaultTahomaTextStyleBorder_top_left).build();
+            // XSSFCell cell82 = XSSFFactoryUtil.buildCell(sheet, 2, row).value("merged region3")
+            //                                     // .style(defaultTahomaTextStyleBorder_top_left)
+            //                                     .build();   
+            // XSSFCell cell83 = XSSFFactoryUtil.buildCell(sheet, 3, row).value("merged region3")
+            //                                     // .style(defaultTahomaTextStyleBorder_top_left)
+            //                                     .build();                                               
+            XSSFFactoryUtil.mergeCellWithStyle(sheet, 1, row, 3, row); row+=2;
+                   
 
             sheet.autoSizeColumn(0);
             sheet.autoSizeColumn(2);
@@ -183,6 +203,15 @@ public class WriteSampleXSSFExcel {
         XSSFCellStyle style = null;
         XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
         style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font).border(XSSFFactoryUtil.COLOR_BLACK, BorderStyle.THIN, true, true, false, false).build();
+        return style;
+    }
+
+    private static XSSFCellStyle getDefaultTahomaTextStyleBorderCustom(XSSFWorkbook xssfWorkbook, boolean left, boolean right, boolean top, boolean bottom){
+        XSSFCellStyle style = null;
+        XSSFFont font = XSSFFactoryUtil.createFont(xssfWorkbook, XSSFFactoryUtil.FONT_ARIAL, 10, XSSFFactoryUtil.WEIGHT_NOBOLD, XSSFFactoryUtil.COLOR_BLACK);
+        style = XSSFFactoryUtil.buildCellStyle(xssfWorkbook).font(font)
+        .bgColor(XSSFFactoryUtil.COLOR_BLUE_GREY)                        
+        .border(XSSFFactoryUtil.COLOR_BLACK, BorderStyle.THICK, left, right, top, bottom).build();
         return style;
     }
 
